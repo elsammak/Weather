@@ -21,15 +21,21 @@ class WeatherTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testAPIClient() {
+        let apiClient = APIClient()
+        let asyncApiCallExpectation = self.expectation(description: "asyncApiCallExpectation")
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        apiClient.getWeather(forLocation: "London") { (dictionary, error) in
+
+            XCTAssertNotNil(dictionary)
+            let requestArray = (dictionary?["data"] as? NSDictionary)?["request"]
+            let requestElement = (requestArray as? NSArray)?[0] as! NSDictionary
+            XCTAssertEqual(requestElement["query"] as! String, "London", "Returns data for \(requestElement["query"])")
+            XCTAssertNil(error)
+            asyncApiCallExpectation.fulfill()
+        }
+        self.waitForExpectations(timeout: 5) { (error) in
+            XCTAssertNil(error)
         }
     }
 
