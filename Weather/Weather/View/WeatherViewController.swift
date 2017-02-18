@@ -8,24 +8,26 @@
 
 import UIKit
 
-private let suggestionsVCSegueID = "SuggestionsSegueIdentifier"
+private let cellIdentifier = "SuggestionsCellID"
 
-class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate {
+class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
 
     // IBOutlets
-    @IBOutlet weak var suggestionsContainerView: UIView!
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
+    @IBOutlet weak var suggestionsTableView: UITableView!
 
+    @IBOutlet weak var searchBar: UISearchBar!
     // ViewModel instance
     var viewModel: WeatherViewModel!
 
-    var suggestionsTableViewController: SuggestionsTableViewController?
-
+    // Properties
+    var suggestionsArray: [String] = []
     // MARK: - View Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = WeatherViewModel()
         viewModel.delegate = self
+        suggestionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
 
     // MARK: - WeatherDataDelegate methods
@@ -41,29 +43,48 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     // MARK: - UISearchBarDelegate
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
 
+        suggestionsArray = Utilities.sharedInstance.suggestionsArray
         // Check for suggestions array if empty
-        if Utilities.sharedInstance.suggestionsArray.count > 0 {
-            suggestionsContainerView.alpha = 1
-            suggestionsTableViewController?.tableView.reloadData()
+        if suggestionsArray.count > 0 {
+            suggestionsTableView.alpha = 1
+            suggestionsTableView.reloadData()
         }
         return true
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-
         if let searchQuery = searchBar.text {
             viewModel.getWeatherInformation(forLocation: searchQuery)
         }
-
+        resetSearch()
     }
 
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // MARK: - UITableview DataSource
 
-        if segue.identifier == suggestionsVCSegueID {
-
-            suggestionsTableViewController = segue.destination as? SuggestionsTableViewController
-        }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return suggestionsArray.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        cell.textLabel?.text = suggestionsArray[indexPath.row]
+        return cell
+    }
+    // MARK: - UITableview Delegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.getWeatherInformation(forLocation: suggestionsArray[indexPath.row])
+        resetSearch()
+    }
+
+    // Private helpers
+    fileprivate func resetSearch() {
+        suggestionsTableView.alpha = 0
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+
 }

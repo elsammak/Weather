@@ -23,7 +23,14 @@ class Utilities {
     }
 
     public func saveNewSuggestion(query: String) {
-        suggestionsArray.append(query)
+        if isQueryExisted(query: query) {
+            return
+        }
+
+        suggestionsArray.insert(query, at: 0)
+        if suggestionsArray.count == maxNumberOfStoredSuggestions + 1 {
+            suggestionsArray.removeLast()
+        }
         UserDefaults.standard.set(suggestionsArray, forKey: sugesstionsArrayKey)
         UserDefaults.standard.synchronize()
     }
@@ -35,5 +42,15 @@ class Utilities {
         } else {
             suggestionsArray = []
         }
+    }
+
+    fileprivate func isQueryExisted(query: String) -> Bool {
+
+        for storedQuery in suggestionsArray {
+            if storedQuery.lowercased() == query.lowercased() {
+                return true
+            }
+        }
+        return false
     }
 }

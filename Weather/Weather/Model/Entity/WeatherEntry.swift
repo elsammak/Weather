@@ -30,9 +30,9 @@ public struct WeatherEntry {
 
         // Parsing
         self.observationTime = currentConditionElement["observation_time"] as? String
-        self.weatherIcon = ((currentConditionElement["weatherIconUrl"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as! String
+        self.weatherIcon = ((currentConditionElement["weatherIconUrl"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as? String
         self.humidity = currentConditionElement["humidity"] as? String
-        self.weatherDescription = ((currentConditionElement["weatherDesc"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as! String
+        self.weatherDescription = ((currentConditionElement["weatherDesc"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as? String
     }
 
 }
