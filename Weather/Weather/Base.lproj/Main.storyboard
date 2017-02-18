@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -44,30 +45,43 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="z2k-jw-r2Y"/>
                                 </connections>
                             </searchBar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cP4-l0-D1J">
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cP4-l0-D1J">
                                 <rect key="frame" x="0.0" y="108" width="375" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="luA-tV-cx3"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="NbP-Ya-kiX" kind="embed" id="Omw-fE-zGW"/>
+                                    <segue destination="NbP-Ya-kiX" kind="embed" identifier="SuggestionsSegueIdentifier" id="Omw-fE-zGW"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGD-Ju-kc0">
+                                <rect key="frame" x="16" y="133" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="jfQ-1R-kYE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ku3-ft-vul" secondAttribute="trailing" id="9Nb-xG-qBL"/>
+                            <constraint firstItem="oGD-Ju-kc0" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" constant="25" id="DWt-Am-OgK"/>
                             <constraint firstItem="cP4-l0-D1J" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" id="GE3-RO-O3x"/>
                             <constraint firstAttribute="trailing" secondItem="cP4-l0-D1J" secondAttribute="trailing" id="PGI-gY-Xf1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="oGD-Ju-kc0" secondAttribute="trailing" id="SOR-SC-nWX"/>
                             <constraint firstItem="cP4-l0-D1J" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VtH-Io-7Oq"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dQV-XK-S06"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pAk-mK-App"/>
+                            <constraint firstItem="oGD-Ju-kc0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="vxW-3L-yNt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather Information" id="J3Y-Z9-CvF"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="OLW-MD-0RJ" id="I9p-Vy-ge7"/>
                         <outlet property="suggestionsContainerView" destination="cP4-l0-D1J" id="cV1-eq-XuW"/>
+                        <outlet property="weatherDescriptionLabel" destination="oGD-Ju-kc0" id="Hk7-wu-cWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -95,7 +109,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XGt-7m-opG" id="Ids-Y7-Som">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

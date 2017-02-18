@@ -42,7 +42,10 @@ class WeatherViewModel: AbstractViewModel {
             }
 
             // Update UI with WeatherEntry data
-                self.delegate.updateUIWithData(weatherEntry: weatherEntry)
+            self.delegate.updateUIWithData(weatherEntry: weatherEntry)
+
+            // Update and save suggestionsArray
+            Utilities.sharedInstance.saveNewSuggestion(query: location)
         }
     }
 }

@@ -10,10 +10,10 @@ import UIKit
 
 class SuggestionsTableViewController: UITableViewController {
 
-    let suggestionsArray: [String] = []
+    var suggestionsArray: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        suggestionsArray = Utilities.sharedInstance.suggestionsArray
     }
 
     // MARK: - Table view data source
