@@ -6,4 +6,14 @@
 //  Copyright © 2017 elsammak. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class AbstractViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+
+}

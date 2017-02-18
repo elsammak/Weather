@@ -15,22 +15,32 @@ protocol WeatherDataDelegate: class {
     func updateUIWithError(error: Error)
 }
 
-class WeatherViewModel {
+class WeatherViewModel: AbstractViewModel {
     public weak var delegate: WeatherDataDelegate!
-    
-    // MARK:- APIs methods
+    var currentLocation: String?
+
+    // MARK: - Updates
+    override func update() {
+        guard let location = currentLocation else {
+            return
+        }
+        getWeatherInformation(forLocation: location)
+    }
+
+    // MARK: - APIs methods
     /**
      Get weather information for location.
      
      - parameter location: String represents query user entered.          
      */
     func getWeatherInformation(forLocation location: String) {
+        currentLocation = location
         WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { (weatherEntry, error) in
             guard let weatherEntry = weatherEntry else { // Update UI with error
                 self.delegate.updateUIWithError(error: error!)
                 return
             }
-            
+
             // Update UI with WeatherEntry data
                 self.delegate.updateUIWithData(weatherEntry: weatherEntry)
         }
