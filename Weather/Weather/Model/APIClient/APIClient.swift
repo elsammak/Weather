@@ -17,7 +17,7 @@ class APIClient {
      
      - returns: Completion blocks contains either data or error.
      */
-    public func getWeather(forLocation location: String, _ completion: @escaping Completion) {
+    public func getWeather(forLocation location: String, _ completion: @escaping APILayerCompletion) {
         Alamofire.request(serverURL, method: .get, parameters: ["q": location], encoding: URLEncoding.default, headers: nil).validate().responseJSON { response in
 
             if let JSON = response.result.value {

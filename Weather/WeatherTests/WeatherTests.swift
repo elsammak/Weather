@@ -39,4 +39,21 @@ class WeatherTests: XCTestCase {
         }
     }
 
+    //***** Must be changed to match current condition before testing ***//
+    func testWeatherManager() {
+
+        let asyncApiCallExpectation = self.expectation(description: "asyncApiCallExpectation")
+
+        WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: "London") { (weatherEntry, error) in
+
+            XCTAssertEqual(weatherEntry?.cityName, "London", "WeatherEntry has \(weatherEntry?.cityName) as cityName")
+            XCTAssertEqual(weatherEntry?.humidity, "93", "Current humidity \(weatherEntry?.humidity)")
+            XCTAssertEqual(weatherEntry?.weatherDescription, "Overcast", "Current Desc \(weatherEntry?.weatherDescription)")
+            XCTAssertNil(error)
+            asyncApiCallExpectation.fulfill()
+        }
+        self.waitForExpectations(timeout: 5) { (error) in
+            XCTAssertNil(error)
+        }
+    }
 }

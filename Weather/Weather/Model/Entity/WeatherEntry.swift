@@ -14,5 +14,25 @@ public struct WeatherEntry {
     var humidity: String?
     var weatherDescription: String?
     var observationTime: String?
-    
+
+    init(withDictionary dictionary: NSDictionary) {
+
+        // Request part (first part of returned JSON)
+        let requestArray = (dictionary["data"] as? NSDictionary)?["request"]
+        let requestElement = (requestArray as? NSArray)?[0] as! NSDictionary
+
+        // Parsing
+        self.cityName = requestElement["query"] as? String
+
+        // Current_Condition part (second part of returned JSON)
+        let currentConditionArray = (dictionary["data"] as? NSDictionary)?["current_condition"]
+        let currentConditionElement = (currentConditionArray as? NSArray)?[0] as! NSDictionary
+
+        // Parsing
+        self.observationTime = currentConditionElement["observation_time"] as? String
+        self.weatherIcon = ((currentConditionElement["weatherIconUrl"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as! String
+        self.humidity = currentConditionElement["humidity"] as? String
+        self.weatherDescription = ((currentConditionElement["weatherDesc"] as? NSArray)?[0] as? NSDictionary)?.value(forKey: "value") as! String
+    }
+
 }
