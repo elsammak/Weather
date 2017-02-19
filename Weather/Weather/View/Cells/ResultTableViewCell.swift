@@ -16,7 +16,7 @@ class ResultTableViewCell: UITableViewCell {
     @IBOutlet weak var weatherDescLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var cityNameLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,23 +27,31 @@ class ResultTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     func updateUI(weatherEntry: WeatherEntry) {
         cityNameLabel.text = weatherEntry.cityName
-        observationTimeLabel.text = "Last observation at: \(weatherEntry.observationTime)"
-        weatherDescLabel.text = weatherEntry.weatherDescription
-        humidityLabel.text = "Humidity: \(weatherEntry.humidity)%"
         
+        if let observationTime = weatherEntry.observationTime {
+            observationTimeLabel.text = "Last observation at: \(observationTime)"
+        }
+        
+        weatherDescLabel.text = weatherEntry.weatherDescription
+        
+        if let humidity = weatherEntry.humidity {
+            humidityLabel.text = "Humidity: \(humidity)%"    
+        }
+        
+
         // Download image
         guard let url =  weatherEntry.weatherIcon else {
             return
         }
         let urlString = URL(string: url)
-        
+
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: urlString!)
             DispatchQueue.main.async {
-                weatherIconImageView.image = UIImage(data: data!)
+                self.weatherIconImageView.image = UIImage(data: data!)
             }
         }
     }

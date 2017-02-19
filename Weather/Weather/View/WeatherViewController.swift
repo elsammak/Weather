@@ -17,28 +17,25 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
     @IBOutlet weak var suggestionsContainerView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
+
     // ViewControllers
     var suggestionsTableVC: SuggestionsTableViewController?
     var resultsTableVC: ResultsTableViewController?
-    
+
     // ViewModel instance
     var viewModel: WeatherViewModel!
 
-    // Properties
-    var suggestionsArray: [String] = []
-    
     // MARK: - View Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = WeatherViewModel()
-        viewModel.delegate = self        
+        viewModel.delegate = self
     }
 
     // MARK: - WeatherDataDelegate methods
     func updateUIWithData(weatherEntry: WeatherEntry) {
-        
-        resultsTableVC?.wearherEntry = weatherEntry
+
+        resultsTableVC?.weatherEntry = weatherEntry
         weatherDescriptionLabel.text = weatherEntry.weatherDescription
     }
 
@@ -48,10 +45,9 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
 
     // MARK: - UISearchBarDelegate
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-
-        suggestionsArray = Utilities.sharedInstance.suggestionsArray
+        
         // Check for suggestions array if empty
-        if suggestionsArray.count > 0 {
+        if Utilities.sharedInstance.suggestionsArray.count > 0 {
             suggestionsContainerView.alpha = 1
             suggestionsTableVC?.tableView.reloadData()
         }
@@ -65,7 +61,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         resetSearch()
     }
 
-    // MARK:- WeatherViewControllerDelegate methods
+    // MARK: - WeatherViewControllerDelegate methods
     func getWeatherInfo(forLocation location: String) {
         viewModel.getWeatherInformation(forLocation: location)
         resetSearch()
@@ -80,13 +76,13 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == suggestionsSegueID {
             suggestionsTableVC = segue.destination as? SuggestionsTableViewController
             suggestionsTableVC?.delegate = self
         } else if segue.identifier == resultsSegueID {
             resultsTableVC = segue.destination as? ResultsTableViewController
         }
-        
+
     }
 }

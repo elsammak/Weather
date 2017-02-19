@@ -35,7 +35,7 @@ class WeatherViewModel: AbstractViewModel {
      */
     func getWeatherInformation(forLocation location: String) {
         currentLocation = location
-        WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { (weatherEntry, error) in
+        WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { [unowned self] (weatherEntry, error) in
             guard let weatherEntry = weatherEntry else { // Update UI with error
                 self.delegate.updateUIWithError(error: error!)
                 return
