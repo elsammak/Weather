@@ -9,6 +9,7 @@
 import UIKit
 
 private let suggestionsSegueID = "SuggestionsSegue"
+private let resultsSegueID = "ResultsSegue"
 
 class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate, WeatherViewControllerDelegate {
 
@@ -19,6 +20,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     
     // ViewControllers
     var suggestionsTableVC: SuggestionsTableViewController?
+    var resultsTableVC: ResultsTableViewController?
     
     // ViewModel instance
     var viewModel: WeatherViewModel!
@@ -35,7 +37,8 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
 
     // MARK: - WeatherDataDelegate methods
     func updateUIWithData(weatherEntry: WeatherEntry) {
-
+        
+        resultsTableVC?.wearherEntry = weatherEntry
         weatherDescriptionLabel.text = weatherEntry.weatherDescription
     }
 
@@ -81,6 +84,9 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         if segue.identifier == suggestionsSegueID {
             suggestionsTableVC = segue.destination as? SuggestionsTableViewController
             suggestionsTableVC?.delegate = self
+        } else if segue.identifier == resultsSegueID {
+            resultsTableVC = segue.destination as? ResultsTableViewController
         }
+        
     }
 }

@@ -63,15 +63,25 @@
                                     <segue destination="bhE-pc-aRT" kind="embed" identifier="SuggestionsSegue" id="mwW-9n-v54"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apa-V3-a7o" userLabel="Results Container View">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <connections>
+                                    <segue destination="ffB-CU-lnQ" kind="embed" identifier="ResultsSegue" id="Izj-KT-Gbw"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Zbd-hg-SSV" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" id="82b-cr-yNL"/>
                             <constraint firstAttribute="trailing" secondItem="Ku3-ft-vul" secondAttribute="trailing" id="9Nb-xG-qBL"/>
+                            <constraint firstItem="Apa-V3-a7o" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" id="BLz-O3-Yg0"/>
                             <constraint firstAttribute="trailing" secondItem="Zbd-hg-SSV" secondAttribute="trailing" id="DDq-eJ-wq2"/>
                             <constraint firstItem="oGD-Ju-kc0" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" constant="25" id="DWt-Am-OgK"/>
+                            <constraint firstAttribute="trailing" secondItem="Apa-V3-a7o" secondAttribute="trailing" id="IX6-wY-hCW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Apa-V3-a7o" secondAttribute="bottom" id="Llr-BU-r5u"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oGD-Ju-kc0" secondAttribute="trailing" id="SOR-SC-nWX"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dQV-XK-S06"/>
+                            <constraint firstItem="Apa-V3-a7o" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gii-Ac-hS3"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pAk-mK-App"/>
                             <constraint firstItem="Zbd-hg-SSV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rKf-ne-khe"/>
                             <constraint firstItem="oGD-Ju-kc0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="vxW-3L-yNt"/>
@@ -124,6 +134,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKL-3e-5HL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="846" y="-17"/>
+        </scene>
+        <!--Results Table View Controller-->
+        <scene sceneID="ss5-9i-Lzy">
+            <objects>
+                <tableViewController id="ffB-CU-lnQ" customClass="ResultsTableViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="mRP-f7-seL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ffB-CU-lnQ" id="RCN-z7-oMB"/>
+                            <outlet property="delegate" destination="ffB-CU-lnQ" id="NKM-K7-k7Z"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YFA-yI-XN0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="44" y="805"/>
         </scene>
     </scenes>
 </document>

@@ -10,9 +10,6 @@ import UIKit
 
 private let cellIdentifier = "reuseIdentifier"
 
-protocol WeatherViewControllerDelegate: class {
-    func getWeatherInfo(forLocation location: String)
-}
 class SuggestionsTableViewController: UITableViewController {
 
     public weak var delegate: WeatherViewControllerDelegate!
