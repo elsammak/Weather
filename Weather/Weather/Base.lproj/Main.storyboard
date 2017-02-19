@@ -54,28 +54,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E9r-VI-6Ml">
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zbd-hg-SSV" userLabel="Suggestions Container View">
                                 <rect key="frame" x="0.0" y="108" width="375" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Uul-eT-9C3"/>
+                                    <constraint firstAttribute="height" constant="200" id="C8a-DX-b9b"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="DRi-eJ-9Eo"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="QQL-dA-9ws"/>
+                                    <segue destination="bhE-pc-aRT" kind="embed" identifier="SuggestionsSegue" id="mwW-9n-v54"/>
                                 </connections>
-                            </tableView>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Zbd-hg-SSV" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" id="82b-cr-yNL"/>
                             <constraint firstAttribute="trailing" secondItem="Ku3-ft-vul" secondAttribute="trailing" id="9Nb-xG-qBL"/>
+                            <constraint firstAttribute="trailing" secondItem="Zbd-hg-SSV" secondAttribute="trailing" id="DDq-eJ-wq2"/>
                             <constraint firstItem="oGD-Ju-kc0" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" constant="25" id="DWt-Am-OgK"/>
-                            <constraint firstAttribute="trailing" secondItem="E9r-VI-6Ml" secondAttribute="trailing" id="GWr-ek-Paa"/>
-                            <constraint firstItem="E9r-VI-6Ml" firstAttribute="top" secondItem="Ku3-ft-vul" secondAttribute="bottom" id="HRc-ko-SfS"/>
-                            <constraint firstItem="E9r-VI-6Ml" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NJa-Do-A5K"/>
                             <constraint firstAttribute="trailingMargin" secondItem="oGD-Ju-kc0" secondAttribute="trailing" id="SOR-SC-nWX"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dQV-XK-S06"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pAk-mK-App"/>
+                            <constraint firstItem="Zbd-hg-SSV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rKf-ne-khe"/>
                             <constraint firstItem="oGD-Ju-kc0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="vxW-3L-yNt"/>
                         </constraints>
                     </view>
@@ -83,7 +81,7 @@
                     <connections>
                         <outlet property="searchBar" destination="Ku3-ft-vul" id="d0u-cv-AYc"/>
                         <outlet property="searchDisplayController" destination="OLW-MD-0RJ" id="I9p-Vy-ge7"/>
-                        <outlet property="suggestionsTableView" destination="E9r-VI-6Ml" id="dbn-IM-3S2"/>
+                        <outlet property="suggestionsContainerView" destination="Zbd-hg-SSV" id="x4D-ln-ovZ"/>
                         <outlet property="weatherDescriptionLabel" destination="oGD-Ju-kc0" id="Hk7-wu-cWK"/>
                     </connections>
                 </viewController>
@@ -98,6 +96,34 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="44" y="122.78860569715144"/>
+        </scene>
+        <!--Suggestions Table View Controller-->
+        <scene sceneID="yCZ-yf-aXW">
+            <objects>
+                <tableViewController id="bhE-pc-aRT" customClass="SuggestionsTableViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpe-g2-vly">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bbL-Od-3eQ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bbL-Od-3eQ" id="DGy-bx-pbf">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bhE-pc-aRT" id="doP-pq-vgN"/>
+                            <outlet property="delegate" destination="bhE-pc-aRT" id="ggW-8o-ECT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UKL-3e-5HL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="846" y="-17"/>
         </scene>
     </scenes>
 </document>

@@ -8,26 +8,29 @@
 
 import UIKit
 
-private let cellIdentifier = "SuggestionsCellID"
+private let suggestionsSegueID = "SuggestionsSegue"
 
-class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate, WeatherViewControllerDelegate {
 
     // IBOutlets
     @IBOutlet weak var weatherDescriptionLabel: UILabel!
-    @IBOutlet weak var suggestionsTableView: UITableView!
-
+    @IBOutlet weak var suggestionsContainerView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    // ViewControllers
+    var suggestionsTableVC: SuggestionsTableViewController?
+    
     // ViewModel instance
     var viewModel: WeatherViewModel!
 
     // Properties
     var suggestionsArray: [String] = []
+    
     // MARK: - View Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = WeatherViewModel()
-        viewModel.delegate = self
-        suggestionsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        viewModel.delegate = self        
     }
 
     // MARK: - WeatherDataDelegate methods
@@ -46,8 +49,8 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         suggestionsArray = Utilities.sharedInstance.suggestionsArray
         // Check for suggestions array if empty
         if suggestionsArray.count > 0 {
-            suggestionsTableView.alpha = 1
-            suggestionsTableView.reloadData()
+            suggestionsContainerView.alpha = 1
+            suggestionsTableVC?.tableView.reloadData()
         }
         return true
     }
@@ -59,32 +62,25 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         resetSearch()
     }
 
-    // MARK: - UITableview DataSource
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return suggestionsArray.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel?.text = suggestionsArray[indexPath.row]
-        return cell
-    }
-    // MARK: - UITableview Delegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.getWeatherInformation(forLocation: suggestionsArray[indexPath.row])
+    // MARK:- WeatherViewControllerDelegate methods
+    func getWeatherInfo(forLocation location: String) {
+        viewModel.getWeatherInformation(forLocation: location)
         resetSearch()
     }
 
     // Private helpers
     fileprivate func resetSearch() {
-        suggestionsTableView.alpha = 0
+        suggestionsContainerView.alpha = 0
         searchBar.text = ""
         searchBar.resignFirstResponder()
     }
 
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == suggestionsSegueID {
+            suggestionsTableVC = segue.destination as? SuggestionsTableViewController
+            suggestionsTableVC?.delegate = self
+        }
+    }
 }
