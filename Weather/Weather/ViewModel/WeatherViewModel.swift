@@ -11,6 +11,11 @@ import Foundation
 
 /// UI Delegate methods, used to update UI/view Layer with objects/error
 protocol WeatherDataDelegate: AbstractDataDelegate {
+    /**
+     Update UI layer with WeatherEntry object.
+     
+     - parameter weatherEntry: WeatherEntry object, used to update UI.
+     */
     func updateUIWithData(weatherEntry: WeatherEntry)
 }
 
@@ -35,10 +40,10 @@ class WeatherViewModel: AbstractViewModel {
      */
     func getWeatherInformation(forLocation location: String) {
         currentLocation = location
-        
+
         // Notify delegate that loading will start
         delegate.willUpdateData()
-        
+
         WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { [unowned self] (result, error) in
             guard let result = result else { // Update UI with error
                 self.delegate.updateUIWithError(error: error!)
@@ -48,10 +53,10 @@ class WeatherViewModel: AbstractViewModel {
             if result is WeatherEntry {
                 // Update UI with WeatherEntry data
                 self.delegate.updateUIWithData(weatherEntry: result as! WeatherEntry)
-                
+
                 // Update and save suggestionsArray
                 Utilities.sharedInstance.saveNewSuggestion(query: location)
-                
+
             } else if result is WeatherError {
                 self.delegate.updateUIWithError(error: result as! WeatherError)
             }

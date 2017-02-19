@@ -5,7 +5,7 @@
 //  Created by Mohammed Elsammak on 2/18/17.
 //  Copyright © 2017 elsammak. All rights reserved.
 //
-
+/// Main WeatherViewController used to display weather data.
 import UIKit
 
 private let suggestionsSegueID = "SuggestionsSegue"
@@ -30,6 +30,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         super.viewDidLoad()
         viewModel = WeatherViewModel()
         viewModel.delegate = self
+        searchBar.becomeFirstResponder()
     }
 
     // MARK: - WeatherDataDelegate methods
@@ -45,7 +46,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     override func updateUIWithError(error: WeatherError) {
         super.updateUIWithError(error: error)
         loadingWheel.stopAnimating()
-        
+
         let alert = UIAlertController(title:"Error",
                                       message: error.message,
                                       preferredStyle: UIAlertControllerStyle.alert)
@@ -85,6 +86,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         viewModel.update()
         resetSearch()
     }
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 

@@ -5,15 +5,17 @@
 //  Created by Mohammed Elsammak on 2/19/17.
 //  Copyright © 2017 elsammak. All rights reserved.
 //
-
+/// UITableViewController used to display suggestions when user tap the search bar.
 import UIKit
 
 private let cellIdentifier = "suggestionReuseID"
 
 class SuggestionsTableViewController: UITableViewController {
 
+    // Properties
     public weak var delegate: WeatherViewControllerDelegate!
 
+    // MARK: - View cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +23,6 @@ class SuggestionsTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -33,7 +34,6 @@ class SuggestionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-        // Configure the cell...
         cell.textLabel?.text = Utilities.sharedInstance.suggestionsArray[indexPath.row]
         return cell
     }

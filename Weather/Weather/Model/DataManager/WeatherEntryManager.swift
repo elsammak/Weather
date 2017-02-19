@@ -45,7 +45,7 @@ class WeatherEntryManager {
             } else {
                 completion(nil, WeatherError())
             }
-            
+
         }
     }
 }

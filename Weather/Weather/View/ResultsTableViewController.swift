@@ -5,13 +5,14 @@
 //  Created by Mohammed Elsammak on 2/19/17.
 //  Copyright © 2017 elsammak. All rights reserved.
 //
-
+/// This TableViewController used to display weather information, it's used as an embeeded view inside WeatherViewController.
 import UIKit
 
 private let resultCellID = "ResultCellID"
 
 class ResultsTableViewController: UITableViewController {
 
+    // Properties
     public weak var delegate: WeatherViewControllerDelegate!
 
     var weatherEntry: WeatherEntry? {
@@ -21,6 +22,7 @@ class ResultsTableViewController: UITableViewController {
         }
     }
 
+    // MARK: - View cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,7 +32,6 @@ class ResultsTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -48,7 +49,10 @@ class ResultsTableViewController: UITableViewController {
         return cell
     }
 
-    func refresh() {
+    // MARK: - Private helpers
+
+    /// Refresh when pull down table view.     
+    @objc fileprivate func refresh() {
         guard let _ = weatherEntry else {
             self.refreshControl?.endRefreshing()
             return

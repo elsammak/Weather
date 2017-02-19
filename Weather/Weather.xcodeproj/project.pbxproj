@@ -185,8 +185,8 @@
 		A59A45861E5819AC0067C8C8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A59A45871E5819AC0067C8C8 /* APIClient */,
 				A59A45881E5819AC0067C8C8 /* DataManager */,
+				A59A45871E5819AC0067C8C8 /* APIClient */,
 				A59A45891E5819AC0067C8C8 /* Entity */,
 			);
 			path = Model;

@@ -10,6 +10,6 @@
 import Foundation
 
 public let serverURL = "http://api.worldweatheronline.com/free/v1/weather.ashx?key=vzkjnx2j5f88vyn5dhvvqkzc&format=json"
-typealias APILayerCompletion = (NSDictionary?, Error?) -> Void
-typealias DataManagerLayerCompletion = (Any?, WeatherError?) -> Void
+typealias APILayerCompletion = (NSDictionary?, Error?) -> Void // Completion block from APICLient to DataManager layer.
+typealias DataManagerLayerCompletion = (Any?, WeatherError?) -> Void // Completion block from DataManager layer to ViewModel layer.
 public let maxNumberOfStoredSuggestions = 10

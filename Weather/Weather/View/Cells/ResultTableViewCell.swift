@@ -5,7 +5,7 @@
 //  Created by Mohammed Elsammak on 2/19/17.
 //  Copyright © 2017 elsammak. All rights reserved.
 //
-
+/// Custom cell for displaying weather informtion
 import UIKit
 
 class ResultTableViewCell: UITableViewCell {
@@ -22,13 +22,13 @@ class ResultTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    /**
+     Update IBOutlets with WeatherEntry values.
+     
+     - parameter weatherEntry: WeatherEntry object to fill data with.
+     */
     func updateUI(weatherEntry: WeatherEntry) {
+
         cityNameLabel.text = weatherEntry.cityName
 
         if let observationTime = weatherEntry.observationTime {
