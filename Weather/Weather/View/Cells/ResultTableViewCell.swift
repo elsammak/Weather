@@ -30,17 +30,16 @@ class ResultTableViewCell: UITableViewCell {
 
     func updateUI(weatherEntry: WeatherEntry) {
         cityNameLabel.text = weatherEntry.cityName
-        
+
         if let observationTime = weatherEntry.observationTime {
             observationTimeLabel.text = "Last observation at: \(observationTime)"
         }
-        
+
         weatherDescLabel.text = weatherEntry.weatherDescription
-        
+
         if let humidity = weatherEntry.humidity {
-            humidityLabel.text = "Humidity: \(humidity)%"    
+            humidityLabel.text = "Humidity: \(humidity)%"
         }
-        
 
         // Download image
         guard let url =  weatherEntry.weatherIcon else {

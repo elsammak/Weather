@@ -9,4 +9,5 @@
 import Foundation
 protocol WeatherViewControllerDelegate: class {
     func getWeatherInfo(forLocation location: String)
+    func update()
 }

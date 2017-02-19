@@ -14,7 +14,6 @@ private let resultsSegueID = "ResultsSegue"
 class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISearchBarDelegate, WeatherViewControllerDelegate {
 
     // IBOutlets
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
     @IBOutlet weak var suggestionsContainerView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
 
@@ -36,7 +35,6 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     func updateUIWithData(weatherEntry: WeatherEntry) {
 
         resultsTableVC?.weatherEntry = weatherEntry
-        weatherDescriptionLabel.text = weatherEntry.weatherDescription
     }
 
     func updateUIWithError(error: Error) {
@@ -45,7 +43,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
 
     // MARK: - UISearchBarDelegate
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        
+
         // Check for suggestions array if empty
         if Utilities.sharedInstance.suggestionsArray.count > 0 {
             suggestionsContainerView.alpha = 1
@@ -67,13 +65,10 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
         resetSearch()
     }
 
-    // Private helpers
-    fileprivate func resetSearch() {
-        suggestionsContainerView.alpha = 0
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
+    func update() {
+        viewModel.update()
+        resetSearch()
     }
-
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -82,7 +77,15 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
             suggestionsTableVC?.delegate = self
         } else if segue.identifier == resultsSegueID {
             resultsTableVC = segue.destination as? ResultsTableViewController
+            resultsTableVC?.delegate = self
         }
 
+    }
+
+    // MARK: - Private helpers
+    fileprivate func resetSearch() {
+        suggestionsContainerView.alpha = 0
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
     }
 }

@@ -12,16 +12,21 @@ private let resultCellID = "ResultCellID"
 
 class ResultsTableViewController: UITableViewController {
 
+    public weak var delegate: WeatherViewControllerDelegate!
+
     var weatherEntry: WeatherEntry? {
         didSet {
+            self.refreshControl?.endRefreshing()
             tableView.reloadData()
         }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.register(UINib(nibName: "ResultTableViewCell", bundle: nil), forCellReuseIdentifier: resultCellID)
 
+        self.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
 
     // MARK: - Table view data source
@@ -38,8 +43,17 @@ class ResultsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: resultCellID, for: indexPath) as! ResultTableViewCell
 
         guard let weatherEntry = weatherEntry else { return cell }
-        
+
         cell.updateUI(weatherEntry: weatherEntry)
         return cell
     }
+
+    func refresh() {
+        guard let _ = weatherEntry else {
+            self.refreshControl?.endRefreshing()
+            return
+        }
+        delegate.update()
+    }
+
 }
