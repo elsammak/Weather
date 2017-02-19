@@ -4,7 +4,7 @@ Weather is a weather application which retreive weather information from worldwe
 The structure of this project is MVVM:-
 ![Alt text](https://github.com/elsammak/Weather/blob/master/Weather/Walking_skeleton.png "Walking Skeleton").
 
-For case of any other UIViewController needed:-
+For case of any other module needed to be added:-
 
 1. Subclass `AbstractViewController`.
 2. Create a new viewModel class which inherits from `AbstractViewModel`.
