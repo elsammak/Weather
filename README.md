@@ -11,3 +11,5 @@ For case of any other UIViewController needed:-
 3. This viewModel class should have a protocol which inhertis from `AbstractDataDelegate`, this protocol is used as a connection between ViewModel layer and View layer.
 4. Add a new DatamMnager class with a singlton design pattern. This class will be responsible for connecting to APIClient and parsing returning JSON objects.
 5. Add required Entity classes.
+
+Swiftlint is integrated in this project, this is to guarantee consistent style while writing the code from multiple developers.
