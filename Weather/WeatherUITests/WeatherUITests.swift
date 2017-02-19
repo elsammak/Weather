@@ -28,9 +28,28 @@ class WeatherUITests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testUI() {
+
+        let app = XCUIApplication()
+        let searchField = app.searchFields["Search for location"]
+        searchField.typeText("London")
+        searchField.typeText("\n")
+        checkForData("London") // Data displayed on UI
+
+        // Check for suggestions
+        searchField.tap()
+        checkForData("London") // Data displayed Suggestion tableview
     }
 
+    func checkForData(_ dataString: String) {
+
+        //Wait till data retreived
+        let app = XCUIApplication()
+        let label = app.staticTexts[dataString]
+        let exists = NSPredicate(format: "exists == 1")
+
+        expectation(for: exists, evaluatedWith: label, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+
+    }
 }
