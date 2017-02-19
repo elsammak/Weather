@@ -7,6 +7,12 @@
 //
 /// The Superclass for all ViewModels classes
 import Foundation
+
+protocol AbstractDataDelegate: class {
+    func willUpdateData()
+    func updateUIWithError(error: WeatherError)
+}
+
 class AbstractViewModel {
 
     func update() { // Do any task pefore updating any request

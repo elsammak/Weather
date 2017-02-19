@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let cellIdentifier = "reuseIdentifier"
+private let cellIdentifier = "suggestionReuseID"
 
 class SuggestionsTableViewController: UITableViewController {
 

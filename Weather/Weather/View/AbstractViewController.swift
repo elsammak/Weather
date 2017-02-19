@@ -8,12 +8,19 @@
 
 import UIKit
 
-class AbstractViewController: UIViewController {
+class AbstractViewController: UIViewController, AbstractDataDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
-        // Do any additional setup after loading the view.
+    // MARK: - AbstractDataDelegate Methods
+    func updateUIWithError(error: WeatherError) {
+
+    }
+
+    func willUpdateData() {
+
     }
 
 }

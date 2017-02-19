@@ -29,12 +29,23 @@ class WeatherEntryManager {
     public func getWeatherInformation(forQuery query: String, _ completion: @escaping DataManagerLayerCompletion) {
         apiClient.getWeather(forLocation: query) { (dictionary, error) in
             guard let dictionary = dictionary else { // Dictionary is nil, and error has occured
-                completion(nil, error)
+                let weatherError = WeatherError(withError: error!)
+                completion(nil, weatherError)
                 return
             }
-            // Parse dictionary to WeatherEntry object
-            let weatherEntry = WeatherEntry(withDictionary: dictionary)
-            completion(weatherEntry, nil)
+            let resultDictionary = dictionary["data"] as! NSDictionary
+            if resultDictionary.value(forKey: "request") != nil {
+                // Parse dictionary to WeatherEntry object
+                let weatherEntry = WeatherEntry(withDictionary: dictionary)
+                completion(weatherEntry, nil)
+            } else if resultDictionary.value(forKey: "error") != nil {
+                // Parse dictionary to WeatherError object
+                let weatherError = WeatherError(withDictionary: resultDictionary)
+                completion(weatherError, nil)
+            } else {
+                completion(nil, WeatherError())
+            }
+            
         }
     }
 }

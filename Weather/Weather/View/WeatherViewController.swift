@@ -16,6 +16,7 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     // IBOutlets
     @IBOutlet weak var suggestionsContainerView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var loadingWheel: UIActivityIndicatorView!
 
     // ViewControllers
     var suggestionsTableVC: SuggestionsTableViewController?
@@ -32,13 +33,28 @@ class WeatherViewController: AbstractViewController, WeatherDataDelegate, UISear
     }
 
     // MARK: - WeatherDataDelegate methods
+    override func willUpdateData() {
+        loadingWheel.startAnimating()
+    }
     func updateUIWithData(weatherEntry: WeatherEntry) {
 
+        loadingWheel.stopAnimating()
         resultsTableVC?.weatherEntry = weatherEntry
     }
 
-    func updateUIWithError(error: Error) {
+    override func updateUIWithError(error: WeatherError) {
+        super.updateUIWithError(error: error)
+        loadingWheel.stopAnimating()
+        
+        let alert = UIAlertController(title:"Error",
+                                      message: error.message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
 
+        alert.addAction(UIAlertAction(title: "Retry", style: UIAlertActionStyle.default, handler: { [unowned self] _ in
+            self.viewModel.update()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     // MARK: - UISearchBarDelegate

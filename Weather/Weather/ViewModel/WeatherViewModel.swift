@@ -10,9 +10,8 @@
 import Foundation
 
 /// UI Delegate methods, used to update UI/view Layer with objects/error
-protocol WeatherDataDelegate: class {
+protocol WeatherDataDelegate: AbstractDataDelegate {
     func updateUIWithData(weatherEntry: WeatherEntry)
-    func updateUIWithError(error: Error)
 }
 
 class WeatherViewModel: AbstractViewModel {
@@ -24,6 +23,7 @@ class WeatherViewModel: AbstractViewModel {
         guard let location = currentLocation else {
             return
         }
+        // Start sending request
         getWeatherInformation(forLocation: location)
     }
 
@@ -35,17 +35,26 @@ class WeatherViewModel: AbstractViewModel {
      */
     func getWeatherInformation(forLocation location: String) {
         currentLocation = location
-        WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { [unowned self] (weatherEntry, error) in
-            guard let weatherEntry = weatherEntry else { // Update UI with error
+        
+        // Notify delegate that loading will start
+        delegate.willUpdateData()
+        
+        WeatherEntryManager.sharedInstance.getWeatherInformation(forQuery: location) { [unowned self] (result, error) in
+            guard let result = result else { // Update UI with error
                 self.delegate.updateUIWithError(error: error!)
                 return
             }
 
-            // Update UI with WeatherEntry data
-            self.delegate.updateUIWithData(weatherEntry: weatherEntry)
-
-            // Update and save suggestionsArray
-            Utilities.sharedInstance.saveNewSuggestion(query: location)
+            if result is WeatherEntry {
+                // Update UI with WeatherEntry data
+                self.delegate.updateUIWithData(weatherEntry: result as! WeatherEntry)
+                
+                // Update and save suggestionsArray
+                Utilities.sharedInstance.saveNewSuggestion(query: location)
+                
+            } else if result is WeatherError {
+                self.delegate.updateUIWithError(error: result as! WeatherError)
+            }
         }
     }
 }

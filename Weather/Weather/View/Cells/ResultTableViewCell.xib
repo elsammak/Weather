@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3I-rn-6kp" userLabel="Humidity Label">
-                        <rect key="frame" x="13" y="179" width="294" height="21"/>
+                        <rect key="frame" x="5" y="179" width="310" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="qVF-wF-eOu"/>
                         </constraints>
@@ -68,7 +68,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="3ao-u2-gs7" secondAttribute="trailing" constant="5" id="C6g-LX-2Uz"/>
                     <constraint firstItem="6cj-VH-o1T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="EbQ-Bm-ekZ"/>
                     <constraint firstItem="gjU-Hv-Vwp" firstAttribute="top" secondItem="6cj-VH-o1T" secondAttribute="bottom" constant="20" id="IHu-x9-Gl2"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="w3I-rn-6kp" secondAttribute="trailing" constant="5" id="Jmy-zZ-Zxq"/>
+                    <constraint firstAttribute="trailing" secondItem="w3I-rn-6kp" secondAttribute="trailing" constant="5" id="Jmy-zZ-Zxq"/>
                     <constraint firstItem="w3I-rn-6kp" firstAttribute="top" secondItem="3ao-u2-gs7" secondAttribute="bottom" constant="40" id="Rla-8S-OPz"/>
                     <constraint firstItem="3ao-u2-gs7" firstAttribute="centerY" secondItem="Obk-TC-XQh" secondAttribute="centerY" id="UGH-bH-yCh"/>
                     <constraint firstItem="Obk-TC-XQh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="WNv-Yr-nbq"/>
@@ -77,7 +77,7 @@
                     <constraint firstAttribute="trailing" secondItem="6cj-VH-o1T" secondAttribute="trailing" constant="10" id="bhb-6t-lbM"/>
                     <constraint firstItem="gjU-Hv-Vwp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="lig-7J-Yf0"/>
                     <constraint firstItem="6cj-VH-o1T" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="rJV-q1-nxN"/>
-                    <constraint firstItem="w3I-rn-6kp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="udE-5N-KC4"/>
+                    <constraint firstItem="w3I-rn-6kp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="udE-5N-KC4"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

@@ -59,6 +59,9 @@
                                     <segue destination="bhE-pc-aRT" kind="embed" identifier="SuggestionsSegue" id="mwW-9n-v54"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="x7f-z3-u4S">
+                                <rect key="frame" x="177" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -68,14 +71,17 @@
                             <constraint firstAttribute="trailing" secondItem="Zbd-hg-SSV" secondAttribute="trailing" id="DDq-eJ-wq2"/>
                             <constraint firstAttribute="trailing" secondItem="Apa-V3-a7o" secondAttribute="trailing" id="IX6-wY-hCW"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Apa-V3-a7o" secondAttribute="bottom" id="Llr-BU-r5u"/>
+                            <constraint firstItem="x7f-z3-u4S" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ce1-Q4-XUT"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dQV-XK-S06"/>
                             <constraint firstItem="Apa-V3-a7o" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gii-Ac-hS3"/>
                             <constraint firstItem="Ku3-ft-vul" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pAk-mK-App"/>
                             <constraint firstItem="Zbd-hg-SSV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rKf-ne-khe"/>
+                            <constraint firstItem="x7f-z3-u4S" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tCk-zH-K5v"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather Information" id="J3Y-Z9-CvF"/>
                     <connections>
+                        <outlet property="loadingWheel" destination="x7f-z3-u4S" id="xhN-KT-6xj"/>
                         <outlet property="searchBar" destination="Ku3-ft-vul" id="d0u-cv-AYc"/>
                         <outlet property="searchDisplayController" destination="OLW-MD-0RJ" id="I9p-Vy-ge7"/>
                         <outlet property="suggestionsContainerView" destination="Zbd-hg-SSV" id="x4D-ln-ovZ"/>
@@ -97,16 +103,16 @@
         <scene sceneID="yCZ-yf-aXW">
             <objects>
                 <tableViewController id="bhE-pc-aRT" customClass="SuggestionsTableViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpe-g2-vly">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jpe-g2-vly">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bbL-Od-3eQ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="suggestionReuseID" id="bbL-Od-3eQ">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bbL-Od-3eQ" id="DGy-bx-pbf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
